@@ -2,9 +2,9 @@
 # VERSION := $(shell git describe --tags)
 # BUILD := $(shell git rev-parse --short HEAD)
 # PROJECTNAME := $(shell basename "$(PWD)")
-PROJECT := $(shell echo "${GCE_PROJECT}")
+PROJECT := $(shell echo "${PROJECT}")
 REGION := us-central1
-REGION_ZONE := us-central1-c
+ZONE := us-central1-c
 BASE_PATH := $(shell git rev-parse --show-toplevel)
 
 init:
@@ -12,7 +12,7 @@ init:
 
 .PHONY: plan
 plan:
-	terraform plan -var 'region=${REGION}' -var 'region_zone=${REGION_ZONE}' -var 'project_id=${PROJECT}' -out=/tmp/terraform.plan
+	terraform plan -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'project_id=${PROJECT}' -out=/tmp/terraform.plan
 
 .PHONY: apply
 apply:
@@ -24,7 +24,7 @@ refresh:
 
 .PHONY: apply
 destroy:
-	terraform destroy -var 'region=${REGION}' -var 'region_zone=${REGION_ZONE}' -var 'project_id=${PROJECT}'
+	terraform destroy -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'project_id=${PROJECT}'
 
 .PHONY: force-unlock
 force-unlock:
