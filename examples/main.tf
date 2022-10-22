@@ -9,5 +9,7 @@ module "db" {
   server_boot_size = 10
   server_zone="${var.zone}"
   network_name="prod"
+  bucket="${var.bucket}"
   project_id = "${var.project_id}"
+  pg_config_file = "config.yaml"
 }

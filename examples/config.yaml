@@ -1,0 +1,5 @@
+---
+hba_allow_subnet: 10.128.0.0/20
+connections: 100
+pg_data: /var/lib/postgresql/14/main
+pg_port: 5432

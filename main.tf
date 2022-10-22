@@ -39,9 +39,7 @@ resource "google_compute_instance" "postgresql" {
   }
 
   metadata = {
-    project = "${var.project_id}"
-    version = "${var.postgresql_version}"
-    # bucket = "${var.bucket_config}"
+    bucket = "${var.bucket}"
     # ssh-keys = "${var.operator_user}:${file(var.public_key_path)}"
   }
   
@@ -54,10 +52,10 @@ resource "google_compute_instance" "postgresql" {
     email  = "${var.service_account}@${var.project_id}.iam.gserviceaccount.com"
     scopes = var.server_scopes
   }
-  # provisioner "local-exec" {
-  #   command = "gsutil cp ${var.pg_config_file} ${var.pg_bucket}"
-  #   interpreter = ["/bin/bash"]
-  # }
+  provisioner "local-exec" {
+    command = "gsutil cp ${var.pg_config_file} ${var.bucket}/db/${var.server_name}/config.yaml"
+     interpreter = ["/bin/bash"]
+  }
 }
 
 # resource "google_dns_record_set" "kube_api" {

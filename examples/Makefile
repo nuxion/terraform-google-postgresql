@@ -12,7 +12,7 @@ init:
 
 .PHONY: plan
 plan:
-	terraform plan -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'project_id=${PROJECT}' -out=/tmp/terraform.plan
+	terraform plan -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'bucket=${BUCKET}' -var 'project_id=${PROJECT}' -out=/tmp/terraform.plan
 
 .PHONY: apply
 apply:
@@ -24,7 +24,7 @@ refresh:
 
 .PHONY: apply
 destroy:
-	terraform destroy -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'project_id=${PROJECT}'
+	terraform destroy -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'project_id=${PROJECT}'  -var 'bucket=${BUCKET}'
 
 .PHONY: force-unlock
 force-unlock:

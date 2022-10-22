@@ -16,3 +16,7 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "bucket" {
+  type = string
+  description = "bucket for postgresql state"
+}

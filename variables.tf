@@ -3,6 +3,11 @@ variable "project_id" {
   type = string
 }
 
+variable "bucket" {
+  description = "full bucket path to be used by postegresql"
+  type = string
+}
+
 variable "script_install" {
   description = "startup script for Postgresql installation"
   type = string
@@ -82,3 +87,8 @@ variable "postgresql_version" {
   default = "14"
 }
 
+variable "pg_config_file" {
+  description = "local config file for postgresql"
+  type = string
+  default = "config.yaml"
+}
