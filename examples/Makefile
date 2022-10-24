@@ -10,6 +10,9 @@ BASE_PATH := $(shell git rev-parse --show-toplevel)
 init:
 	terraform init
 
+config:
+	gsutil cp config.yaml ${BUCKET}/db/${SERVER_NAME}/config.yaml
+
 .PHONY: plan
 plan:
 	terraform plan -var 'region=${REGION}' -var 'zone=${ZONE}' -var 'bucket=${BUCKET}' -var 'project_id=${PROJECT}' -out=/tmp/terraform.plan

@@ -52,10 +52,7 @@ resource "google_compute_instance" "postgresql" {
     email  = "${var.service_account}@${var.project_id}.iam.gserviceaccount.com"
     scopes = var.server_scopes
   }
-  provisioner "local-exec" {
-    command = "gsutil cp ${var.pg_config_file} ${var.bucket}/db/${var.server_name}/config.yaml"
-     interpreter = ["/bin/bash"]
-  }
+  
 }
 
 # resource "google_dns_record_set" "kube_api" {

@@ -35,13 +35,14 @@ create_user(){
 update_conf(){
     gsutil cp $1/db/${HOSTNAME}/config.yaml /tmp/config.yaml
     if ! diff /tmp/config.yaml $PG_CONF; then
-        _log "Changes detected"
+        _log "Changes detected for config.yaml"
         mv /tmp/config.yaml $PG_CONF
-        gomplate -d "config=${PG_CONF}" -f ${PG_OPT}/postgresql.tpl.conf -o ${PG_ETC}/postgresql.conf
-        gomplate -d "config=${PG_CONF}" -f ${PG_OPT}/pg_hba.tpl.conf -o ${PG_ETC}/pg_hba.conf
+        gomplate -d "config=${PG_CONF}" -f ${PG_OPT}/templates/postgresql.tpl.conf -o ${PG_ETC}/postgresql.conf
+        gomplate -d "config=${PG_CONF}" -f ${PG_OPT}/templates/pg_hba.tpl.conf -o ${PG_ETC}/pg_hba.conf
         systemctl stop postgresql
         systemctl start postgresql
     else
+        _log "No Changes for config.yaml"
         rm /tmp/config.yaml
     fi
     
@@ -55,8 +56,8 @@ install_psql(){
     mkdir -p ${PG_OPT}/backups
     mkdir -p ${PG_OPT}/scripts
     touch ${PG_LOCK}
-    cp /opt/cloudscripts-${VERSION}/scripts/templates/pg14/* ${PG_OPT}/templates
-    cp /opt/cloudscripts-${VERSION}/scripts/db/pg_* ${PG_OPT}/scripts
+    cp /opt/cloudscripts-${CS_VERSION}/scripts/templates/pg14/* ${PG_OPT}/templates
+    cp /opt/cloudscripts-${CS_VERSION}/scripts/db/pg_* ${PG_OPT}/scripts
     update_conf $1
     }
 
